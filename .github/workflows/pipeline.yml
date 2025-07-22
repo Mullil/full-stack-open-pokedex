@@ -29,7 +29,9 @@ jobs:
         uses: Ilshidur/action-discord@master
         with:
           args: |
+           Build failed!
            Commit: [${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
+           by ${{ github.event.head_commit.author.name }} broke the build :(
       - name: test
         run: npm run test
 
@@ -81,7 +83,9 @@ jobs:
         uses: Ilshidur/action-discord@master
         with:
           args: |
-           to https://full-stack-open-pokedex-nameless-feather-5726.fly.dev/
+            New version of Pokedex deployed successfully
+            to https://full-stack-open-pokedex-nameless-feather-5726.fly.dev/
+            by 
 
   tag_release:
     if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}

@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+import NotReal from 'this-module-does-not-exist'
 
 // get the port from env variable
 const PORT = process.env.PORT || 5000

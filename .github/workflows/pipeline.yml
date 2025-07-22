@@ -24,13 +24,12 @@ jobs:
         run: npm run build
       - name: Build failed
         if: failure()
-        uses: rjstone/discord-webhook-notify@v2
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
         with:
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-          severity: error
-          details: |
-            Commit https://github.com/${{ github.repository }}/commit/${{ github.sha }}
-            by ${{ github.event.head_commit.author.name }} broke the build :(
+          args: |
+           Commit: [${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
       - name: test
         run: npm run test
 
@@ -77,11 +76,11 @@ jobs:
 
       - name: A new version of Pokedex deployed
         if: success()
-        uses: rjstone/discord-webhook-notify@v2
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
         with:
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-          severity: info
-          details: |
+          args: |
            to https://full-stack-open-pokedex-nameless-feather-5726.fly.dev/
 
   tag_release:

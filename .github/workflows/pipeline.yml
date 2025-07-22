@@ -85,7 +85,7 @@ jobs:
           args: |
             New version of Pokedex deployed successfully
             to https://full-stack-open-pokedex-nameless-feather-5726.fly.dev/
-            by 
+            by ${{ github.event.head_commit.author.name }}
 
   tag_release:
     if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}

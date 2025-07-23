@@ -4,6 +4,12 @@ const app = express()
 // get the port from env variable
 const PORT = process.env.PORT || 5000
 
+let failure = false
+
+setTimeout(() => {
+  failure = true
+}, 60000)
+
 app.use(express.static('dist'))
 
 app.get('/version', (req, res) => {
@@ -11,6 +17,7 @@ app.get('/version', (req, res) => {
 })
 
 app.get('/health', (req, res) => {
+  if (failure) throw('error...  ')
   res.send('ok')
 })
 
